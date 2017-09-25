@@ -32,7 +32,8 @@ for line in text:
             if re.search("^\"$", word):
                 del words[i]
             elif re.search("^\"\w*", word):
-                re.sub(r"^\"\w*", repl, word)
+                re.sub("^\"\w*", repl, word)
+
 
 text.close()
 
