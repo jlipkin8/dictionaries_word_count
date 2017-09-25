@@ -21,8 +21,10 @@ for line in text:
     line = line.strip()
     if line:
         words = line.split(" ")
-        for i, word in enumerate(words): 
-            if re.search("^\"\w*", word):
+        for i, word in enumerate(words):
+            if re.search("^\"$", word):
+                del words[i]
+            elif re.search("^\"\w*", word):
                 quote = re.search("^\"\w*", word)
                 print quote.group()
                 print "word", word
