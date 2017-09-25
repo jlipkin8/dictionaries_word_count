@@ -14,6 +14,13 @@
 
 # poem.close()
 import re
+
+def repl(m):
+    word = m.group()
+    word = word[1:]
+    print word       
+    return word
+
 text = open("twain.txt")
 word_count = {}
 
@@ -25,9 +32,34 @@ for line in text:
             if re.search("^\"$", word):
                 del words[i]
             elif re.search("^\"\w*", word):
-                quote = re.search("^\"\w*", word)
-                print quote.group()
-                print "word", word
-                print "i", i
+                re.sub(r"^\"\w*", repl, word)
 
 text.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
