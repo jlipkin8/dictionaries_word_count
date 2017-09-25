@@ -13,8 +13,7 @@
 #     print "{} {}".format(word, count)
 
 # poem.close()
-
-
+import re
 text = open("twain.txt")
 word_count = {}
 
@@ -22,4 +21,11 @@ for line in text:
     line = line.strip()
     if line:
         words = line.split(" ")
-        print words
+        for i, word in enumerate(words): 
+            if re.search("^\"\w*", word):
+                quote = re.search("^\"\w*", word)
+                print quote.group()
+                print "word", word
+                print "i", i
+
+text.close()
