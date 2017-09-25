@@ -27,7 +27,7 @@ def rmv_period_qt(m):
     print word
     return word
 
-def rmv_end_qt(m): 
+def rmv_end(m): 
     word = m.group()
     word = word[:-1]
     print word
@@ -46,11 +46,12 @@ for line in text:
                 continue 
             elif re.search("^\"\w*", word):
                 re.sub("^\"\w*", rmv_front_qt, word)
+            elif re.search("\w+\[.,]$", word):
+                re.sub("\w+\"$", rmv_end, word)
             elif re.search("\w+\.\"$", word): 
                 re.sub("\w+\.\"$",rmv_period_qt, word)
             elif re.search("\w+\"$", word): 
-                re.sub("\w+\"$", rmv_end_qt, word)
-
+                re.sub("\w+\"$", rmv_end, word)
 
 text.close()
 
