@@ -15,11 +15,23 @@
 # poem.close()
 import re
 
-def repl(m):
+def rmv_front_qt(m):
     word = m.group()
     word = word[1:]
     print word       
     return word
+
+def rmv_period_qt(m): 
+    word = m.group()
+    word = word[:-2]
+    print word
+    return word
+
+def rmv_end_qt(m): 
+    word = m.group()
+    word = word[:-1]
+    print word
+    return word 
 
 text = open("twain.txt")
 word_count = {}
@@ -31,8 +43,13 @@ for line in text:
         for i, word in enumerate(words):
             if re.search("^\"$", word):
                 del words[i]
+                continue 
             elif re.search("^\"\w*", word):
-                re.sub("^\"\w*", repl, word)
+                re.sub("^\"\w*", rmv_front_qt, word)
+            elif re.search("\w+\.\"$", word): 
+                re.sub("\w+\.\"$",rmv_period_qt, word)
+            elif re.search("\w+\"$", word): 
+                re.sub("\w+\"$", rmv_end_qt, word)
 
 
 text.close()
