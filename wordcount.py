@@ -15,26 +15,29 @@
 # poem.close()
 import re
 
-def rmv_front_qt(m):
+def rmv_front_char(m):
     word = m.group()
-    word = word[1:]
-    print word       
+    word = word[1:]       
     return word
 
-def rmv_period_qt(m): 
+def rmv_back_2_char(m): 
     word = m.group()
     word = word[:-2]
-    print word
     return word
 
-def rmv_end(m): 
+def rmv_end(m):
+    print "rmv_end " 
     word = m.group()
     word = word[:-1]
-    print word
     return word 
+
+def check_word(wrd):
+    word = wrd.lower()
+    word_count[word] = word_count.get(word, 0) + 1 
 
 text = open("twain.txt")
 word_count = {}
+count = 0
 
 for line in text:
     line = line.strip()
@@ -45,14 +48,22 @@ for line in text:
                 del words[i]
                 continue 
             elif re.search("^\"\w*", word):
-                re.sub("^\"\w*", rmv_front_qt, word)
-            elif re.search("\w+\[.,]$", word):
-                re.sub("\w+\"$", rmv_end, word)
-            elif re.search("\w+\.\"$", word): 
-                re.sub("\w+\.\"$",rmv_period_qt, word)
+                word = re.sub("^\"\w*", rmv_front_char, word)
+            elif re.search("\w+[\.\,\?\)\;\:\!]$", word):
+                word = re.sub("\w+[\.\,\?\)\;\:\!]$", rmv_end, word)
+            elif re.search("\w+[\.\,\?\)\;\:\!]\"$", word): 
+                word = re.sub("\w+[\.\,\?\)\;\:\!]\"$",rmv_back_2_char, word)
             elif re.search("\w+\"$", word): 
-                re.sub("\w+\"$", rmv_end, word)
+                word = re.sub("\w+\"$", rmv_end, word)
+            else: 
+                print word
 
+            word = word.lower()
+            word_count[word] = word_count.get(word, 0) + 1 
+
+
+# for word, count in word_count.items():
+#     print "{} {}".format(word, count)
 text.close()
 
 
@@ -82,3 +93,4 @@ text.close()
 
 
 
+re.sub("\w+\"$", rmv_end, word)
