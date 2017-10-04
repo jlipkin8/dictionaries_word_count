@@ -1,6 +1,7 @@
 
 import re
 import sys 
+import collections 
 
 def rmv_front_char(m):
     word = m.group()
@@ -60,7 +61,34 @@ filename = sys.argv[1]
 if filename:
     text = open(filename)
 
-words = count_words_dict(text)
-print_word_count(words)
+# counting the words using a plain old dictionary 
+# words = count_words_dict(text)
+# print_word_count(words)
+
+#counting using the collection's counter object 
+data = text.read()
+words = data.split(" ")
+word_count = collections.Counter(words)
+print word_count
+
 
 text.close()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
