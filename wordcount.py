@@ -1,5 +1,6 @@
 
 import re
+import sys 
 
 def rmv_front_char(m):
     word = m.group()
@@ -41,7 +42,11 @@ def iter_inspect_wrds(words):
         count_word(word) 
 
 
-text = open("twain.txt")
+filename = sys.argv[1]
+
+if filename:
+    text = open(filename)
+
 word_count = {}
 count = 0
 
@@ -52,35 +57,6 @@ for line in text:
         iter_inspect_wrds(words)
 
 
-for word, count in word_count.items():
-    print "{} {}".format(word, count)
-text.close()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-re.sub("\w+\"$", rmv_end, word)
+# for word, count in word_count.items():
+#     print "{} {}".format(word, count)
+# text.close()
